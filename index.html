@@ -33,7 +33,11 @@
     </style>
     <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
     <script>
-      window.ethereum.enable();
+      try {
+        window.ethereum.enable();
+      } catch (err) {
+        window.location.href = 'https://news.mynavi.jp/cryptocurrency/metamask/';
+      }
       let abi
       let bytecode
       const provider = new ethers.providers.Web3Provider(window.ethereum);
