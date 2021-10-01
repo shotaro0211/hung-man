@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" href="HungMan.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="">
+    <link rel="apple-touch-icon" href="HungMan.png">
+    <title>Hung Man</title>
+    <style>
+      .App {
+        text-align: center;
+      }
+      .Button {
+        margin-top: 0px;
+        text-align: center;
+        width: 400px;
+        height: 70px;
+        font-size: 20px;
+        -webkit-appearance: none;
+        appearance: none;
+        border: none;
+        outline: none;
+        background-color: black;
+        border-radius: 2px;
+        box-sizing: border-box;
+        color: #fff;
+        font-weight: bold;
+        padding: 14px 20px;
+        cursor: pointer;
+      }
+    </style>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script>
+      window.ethereum.enable();
+      let abi
+      let bytecode
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      let address = "0x8d49504955f361e808a7091bf4964994ac89131e"
+
+      fetch('HM.json')
+        .then(response => response.json())
+        .then(data => {
+          abi = data.abi;
+          bytecode = data.bytecode;
+        }
+      );
+
+      const buttonMint = async() => {
+        const contract = new ethers.Contract(address, abi, provider);
+        const signer = provider.getSigner();
+        await contract.connect(signer).claim();
+      };
+
+    </script>
+  </head>
+  <body>
+    <div class="App">
+      <h1>Hung Man</h1>
+      <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="500px" height="500px" viewBox="-115 -50 500 500">
+        <line x1="0" y1="0" x2="0" y2="415" stroke="black" stroke-width="2" />
+        <line x1="0" y1="0" x2="270" y2="0" stroke="black" stroke-width="2" />
+        <line x1="270" y1="0" x2="270" y2="415" stroke="black" stroke-width="2" />
+        <line x1="0" y1="415" x2="270" y2="415" stroke="black" stroke-width="2" />
+        <line x1="0" y1="50" x2="270" y2="50" stroke="black" stroke-width="3" />
+        <line x1="0" y1="350" x2="270" y2="350" stroke="black" stroke-width="3" />
+        <line x1="50" y1="50" x2="50" y2="350" stroke="black" stroke-width="3" />
+        <line x1="100" y1="50" x2="50" y2="100" stroke="black" stroke-width="3" />
+        <line x1="150" y1="50" x2="150" y2="100" stroke="black" stroke-width="3" />
+        <line x1="85" y1="350" x2="50" y2="265" stroke="black" stroke-width="3" />
+        <line x1="15" y1="350" x2="50" y2="265" stroke="black" stroke-width="3" />
+        <circle cx="150" cy="125" r="25" stroke="black" stroke-width="3" fill="white" />
+        <path id="path0" visibility="visible" stroke="#000000" stroke-width="3" stroke-opacity="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="none" marker-start="none" marker-end="none" fill="none" fill-rule="evenodd" fill-opacity="1" data-name="curve" data-title="curve" deg="0" data-sw="1" data-grad="0" data-group="0" data-edit="1" filter="none" d="M120 190 C120 168 133.5 150 150 150 C166.5 150 180 168 180 190 C180 212 166.5 230 150 230 C133.5 230 120 212 120 190 Z " data-centerx="150" data-centery="190"/>
+        <path id="path3" visibility="visible" stroke="#000000" stroke-width="3" stroke-opacity="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="none" marker-start="none" marker-end="none" fill="none" fill-rule="evenodd" fill-opacity="1" data-name="curve" data-title="curve" deg="0" data-sw="1" data-grad="0" data-group="0" data-edit="1" filter="none" d="M124 170.111 L114.978 184.079 L106.556 189.667 " data-centerx="115.278" data-centery="179.889"/>
+        <path id="path4" visibility="visible" stroke="#000000" stroke-width="3" stroke-opacity="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="none" marker-start="none" marker-end="none" fill="none" fill-rule="evenodd" fill-opacity="1" data-name="curve" data-title="curve" deg="0" data-sw="1" data-grad="0" data-group="0" data-edit="1" filter="none" d="M176.556 171 L187.389 189.586 L196.555 191.445 " data-centerx="186.556" data-centery="181.222"/>
+        <path id="path5" visibility="visible" stroke="#000000" stroke-width="3" stroke-opacity="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="none" marker-start="none" marker-end="none" fill="none" fill-rule="evenodd" fill-opacity="1" data-name="curve" data-title="curve" deg="0" data-sw="1" data-grad="0" data-group="0" data-edit="1" filter="none" d="M129.778 220.445 L132.555 244.837 L138.111 253.222 " data-centerx="133.945" data-centery="236.833"/>
+        <path id="path6" visibility="visible" stroke="#000000" stroke-width="3" stroke-opacity="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="none" marker-start="none" marker-end="none" fill="none" fill-rule="evenodd" fill-opacity="1" data-name="curve" data-title="curve" deg="0" data-sw="1" data-grad="0" data-group="0" data-edit="1" filter="none" d="M166.112 224.556 L162.111 259.544 L159.111 267.444 " data-centerx="162.615" data-centery="246"/>
+      </svg><br />
+
+      <button class="Button" onclick="buttonMint()">If you do mint, will you die?</button><br/>
+    </div>
+  </body>
+</html>
